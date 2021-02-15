@@ -1,0 +1,19 @@
+@hostname = http://localhost:3001
+
+### current
+
+POST {{hostname}}/api/current/ HTTP/1.1
+content-type: application/json
+
+{
+    "cityName": "Ann Arbor"
+}
+
+### 5day
+
+POST {{hostname}}/api/5day/ HTTP/1.1
+content-type: application/json
+
+{
+    "cityName": "Ann Arbor"
+}
