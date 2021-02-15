@@ -13,26 +13,35 @@ app.use(express.json())
 
 app.post('/api/current/', (request, response, next) => {
     
-    const cityName = request.body.cityName
-    const reqUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}`
-
-    fetch(reqUrl)
-        .then(res => res.json())
-        .then(body => console.log(body));
+    if (request.body.cityName) {
+        const cityName = request.body.cityName
+        const reqUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}`
+    
+        fetch(reqUrl)
+            .then(res => res.json())
+            .then(body => response.json(body))
+            .catch(error => next(error))
+            
+    } else {
+        response.status(400).send({ error: 'must include valid city name' })
+    }
 
 })
 
 app.post('/api/5day/', (request, response, next) => {
     
-    // validate incoming data
-    const cityName = request.body.cityName
-    const reqUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${process.env.API_KEY}`
+    if (request.body.cityName) {
+        const cityName = request.body.cityName
+        const reqUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${process.env.API_KEY}`
 
-    fetch(reqUrl)
-        .then(res => res.json())
-        .then(body => console.log(body));
+        fetch(reqUrl)
+            .then(res => res.json())
+            .then(body => response.json(body))
+            .catch(error => next(error))
 
-    // return data
+    } else {
+        response.status(400).send({ error: 'must include valid city name' })
+    }
 })
 
 const PORT = process.env.PORT || 3001
