@@ -22,8 +22,14 @@
 
 /* on mobile go 90vw */
 .user-input {
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items:baseline;
   min-width: 30vw;
+}
+
+.input-box {
+  max-width: 250px;
 }
 
 /* on mobile go 90vw */
@@ -41,4 +47,51 @@
 
 .error {
   background-color: #ec2e20;
+}
+
+/* on mobile go 90vw */
+.weather-data-container {
+  margin: 15px;
+  min-width: 30vw;
+}
+
+.currently {
+  text-align: left;
+}
+
+.temp {
+  text-align: center;
+  font-size: 5rem;
+}
+
+.city {
+  text-align: right;
+}
+
+@media (max-width: 1200px) {
+
+  .app-header {
+    min-width: 90vw;
+  }
+
+  .menu {
+    margin-top: 3vh;
+  }
+
+  .user-input {
+    min-width: 90vw;
+  }
+
+  .input-box {
+    max-width: 150px;
+  }
+
+  .notification {
+    min-width: 90vw;
+  }
+
+  .weather-data-container {
+    margin: 15px;
+    min-width: 90vw;
+  }
 }

@@ -15,7 +15,7 @@ app.post('/api/current/', (request, response, next) => {
     
     if (request.body.cityName) {
         const cityName = request.body.cityName
-        const reqUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}`
+        const reqUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${process.env.API_KEY}&units=imperial`
     
         fetch(reqUrl)
             .then(res => res.json())
@@ -32,7 +32,7 @@ app.post('/api/5day/', (request, response, next) => {
     
     if (request.body.cityName) {
         const cityName = request.body.cityName
-        const reqUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${process.env.API_KEY}`
+        const reqUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${process.env.API_KEY}&units=imperial`
 
         fetch(reqUrl)
             .then(res => res.json())
