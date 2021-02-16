@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ForecastCard = ({data}) => {
-
+  console.log(data)
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } 
   const day = new Date(data[0].dt_txt).toLocaleDateString(undefined, options)
 
@@ -12,10 +12,10 @@ const ForecastCard = ({data}) => {
           const imgUrl = `http://openweathermap.org/img/wn/${snapshot.weather[0].icon}.png`
 
           return <div key={snapshot.dt_txt} className='snapshot'>
-            <p>{new Date(snapshot.dt_txt).toTimeString().split(' ')[0]}</p>
-            <p>{snapshot.main.temp} ℉</p>
-            <img src={imgUrl} alt='weather icon'/>
-          </div>
+              <p>{new Date(snapshot.dt_txt).toTimeString().split(' ')[0]}</p>
+              <p>{snapshot.main.temp} ℉</p>
+              <img src={imgUrl} alt='weather icon'/>
+            </div>
           }
         )}
     </div>
