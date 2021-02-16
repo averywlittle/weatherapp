@@ -12,6 +12,8 @@ app.use(express.json())
 // Routes
 
 app.post('/api/current/', (request, response, next) => {
+
+    console.log(request.method, request.url, request.body)
     
   if (request.body.cityName) {
     const cityName = request.body.cityName
@@ -38,6 +40,8 @@ app.post('/api/current/', (request, response, next) => {
 
 app.post('/api/5day/', (request, response, next) => {
     
+  console.log(request.method, request.url, request.body)
+
   if (request.body.cityName) {
     const cityName = request.body.cityName
     const reqUrl = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${process.env.API_KEY}&units=imperial`

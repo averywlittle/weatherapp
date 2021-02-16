@@ -19,7 +19,7 @@ const App = () => {
   const [fiveDay, setFiveDay] = useState(null)
 
   useEffect(() => {
-    // change this to just call the functions if null
+    
     const timeoutId = setTimeout(async () => {
       if (input.length > 0) {
         const dataObj = { cityName: input, coords: null }
@@ -52,11 +52,6 @@ const App = () => {
     return () => clearTimeout(timeoutId)
 
   }, [input])
-
-  useEffect(() => {
-    geoUtility()
-    
-  }, [])
 
 
   const geoUtility = () => {
@@ -104,22 +99,22 @@ const App = () => {
   }
 
   return (
-    <div className="container">
+    <div className='container'>
       <Menu />
 
       <UserInput setInput={setInput} input={input}/>
 
       <Switch>
-        <Route path="/5day">
+        <Route path='/5day'>
           {fiveDay && <FiveDay data={fiveDay}/>}
         </Route>
 
-        <Route path="/current">
+        <Route path='/current'>
           {current && <Current data={current}/>}
         </Route>
 
-        <Route path="/">
-          <Redirect to="/current" />
+        <Route path='/'>
+          <Redirect to='/current' />
         </Route>
 
       </Switch>
