@@ -1,8 +1,8 @@
 const baseUrl = 'http://localhost:3001/api'
 
-const getCurrent = async (cityName) => {
+const getCurrent = async ({ cityName, coords }) => {
 
-    const data = { cityName: cityName }
+    const data = { cityName: cityName, coords: coords }
     const response = await fetch(`${baseUrl}/current/`, {
         method: 'POST',
         mode: 'cors',
@@ -14,9 +14,9 @@ const getCurrent = async (cityName) => {
     return response.json()
 }
 
-const get5Day = async cityName => {
+const get5Day = async ({ cityName, coords }) => {
 
-    const data = { cityName: cityName }
+    const data = { cityName: cityName, coords: coords }
     const response = await fetch(`${baseUrl}/5day/`, {
         method: 'POST',
         headers: {

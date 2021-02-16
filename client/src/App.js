@@ -15,33 +15,51 @@ const App = () => {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [input, setInput] = useState('')
-  const [location, setLocation] = useState('Ann Arbor')
   const [current, setCurrent] = useState(null)
   const [fiveDay, setFiveDay] = useState(null)
 
   useEffect(() => {
     // change this to just call the functions if null
     const timeoutId = setTimeout(async () => {
-      let cityName
       if (input.length > 0) {
-        cityName = input
-      } else {
-        cityName = location
-      }
-      const currentData = await weatherService.getCurrent(cityName)
-      setCurrent(currentData)
-      console.log('current', currentData)
+        const dataObj = { cityName: input, coords: null }
+  
+        const currentData = await weatherService.getCurrent(dataObj)  
+        const fiveData = await weatherService.get5Day(dataObj)
 
-      const fiveData = await weatherService.get5Day(cityName)
-      setFiveDay(fiveData)
-      console.log('5day', fiveData)
+        if ((currentData.cod && currentData.cod === '404') || (fiveData.cod && fiveData.cod === '404')) {
+          setError('The entered city name returned no result. Please try a different name.')
+          setTimeout(() => {
+            setError('')
+          }, 5000)
+        } else {
+          setCurrent(currentData)
+          setFiveDay(fiveData)
+
+
+          setMessage(`Weather data for ${currentData.name} retrieved.`)
+          setTimeout(() => {
+            setMessage('')
+          }, 5000)
+        }
+
+      } else {
+        geoUtility()
+      }
+
     }, 500)
 
     return () => clearTimeout(timeoutId)
 
-  }, [input, location])
+  }, [input])
 
   useEffect(() => {
+    geoUtility()
+    
+  }, [])
+
+
+  const geoUtility = () => {
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -49,21 +67,41 @@ const App = () => {
     }
 
     const success = async (pos) => {
-      console.log('position', pos)
 
-      // alter weather service to accept either coords or city name
+      const dataObj = { 
+        cityName: null, 
+        coords: {
+          longitude: pos.coords.longitude,
+          latitude: pos.coords.latitude
+        } 
+      }
+
+      const currentData = await weatherService.getCurrent(dataObj)
+      setCurrent(currentData)
+
+      const fiveData = await weatherService.get5Day(dataObj)
+      setFiveDay(fiveData)
+
+      setMessage(`Weather data for ${currentData.name} retrieved.`)
+      setTimeout(() => {
+        setMessage('')
+      }, 5000)
     }
 
     const error = (err) => {
-      setError('Could not retrieve your location, please type the city you want')
+      setError('Could not retrieve your location, please type a city to get weather report.')
       setTimeout(() => {
         setError('')
       }, 5000)
     }
-    // get the user location from browser
-    navigator.geolocation.getCurrentPosition(success, error, options)
-    
-  }, [])
+
+    if (current && fiveDay) {
+      return null
+    } else {
+      // get the user location from browser
+      navigator.geolocation.getCurrentPosition(success, error, options)
+    }
+  }
 
   return (
     <div className="container">

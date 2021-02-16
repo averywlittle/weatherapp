@@ -14,7 +14,7 @@ const ForecastCard = ({data}) => {
                 return <div key={snapshot.dt_txt} className='snapshot'>
                     <p>{new Date(snapshot.dt_txt).toTimeString().split(' ')[0]}</p>
                     <p>{snapshot.main.temp} ℉</p>
-                    <img src={imgUrl}/>
+                    <img src={imgUrl} alt='weather icon'/>
                 </div>
                 }
             )}
