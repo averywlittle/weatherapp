@@ -1,6 +1,6 @@
 # weatherapp
 
-This project is live at: 
+This project is live at: https://salty-scrubland-70759.herokuapp.com/current
 
 The project requirement was to use the OpenWeatherMap API and in order to safeguard keys a back end should be used. In this case I used an express app with node-fetch in order to make requests to the weather API. There are two endpoints, current and 5day. Each fetches data and returns it to the client. Some error handling is implemented.
 
