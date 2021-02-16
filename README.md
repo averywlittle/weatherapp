@@ -14,12 +14,12 @@ I've implemented some unit tests with Jest on components that are critical to fe
 
 My design doesn't scale well if you were to add more features. The main state component (App) would get crowded very quickly. When starting from scratch on a project I like to 'get one slice working'. This means that I like to stretch as far to the back end as I can go, and like wise to the front end, and work to connect the flow of data. It feels good to have some functionality up and running fast. Then I build out horizontally from there. For example, I first set up a endpoint for current weather data then displayed that on the front end. Then I added the 5day page and endpoint. Then I added geolocation functionality... slowly expanding the breadth of the app to meet requirements. Working like this is fun and progress is fast paced.
 
+To make this project scalable I'll address a scenario. Let's say I'm trying to add more functionality from the weather API. It could be maps, pollution data, etc. At that point I would definitely implement a more hands on state management approach, allowing state to be decoupled even more from the visualization functionality of the component tree. Isolating the state logic would also open it up to more unit testing coverage.
+
+Overall I had fun doing this project. I always used axios before but the browser fetch API works just fine for projects like this. I also implemented a sort of input debounce using a setTimeout and effect hook. That was neat. I will update this readme with the live url after I deploy the project and submit via email.
+
 The biggest bug I left in is related to single page apps. If a user tries to refresh the page on a route or go there directly, they'll have a Cannot Get ${URL} error. This is because the user hasn't gotten the JavaScript to download from the / route. So they have nothing to render. I know there are ways to fix this (handling it server side or with some webpack config stuff) but for the sake of time I wanted to just submit the project. So if you're visiting this project's website just go to the root domain!
 
 To test:
 - from weatherapp/client run 'npm test'
 - or have both client and server running and from weatherapp/client run 'npm run cypress:open'
-
-To make this project scalable I'll address a scenario. Let's say I'm trying to add more functionality from the weather API. It could be maps, pollution data, etc. At that point I would definitely implement a more hands on state management approach, allowing state to be decoupled even more from the visualization functionality of the component tree. Isolating the state logic would also open it up to more unit testing coverage.
-
-Overall I had fun doing this project. I always used axios before but the browser fetch API works just fine for projects like this. I also implemented a sort of input debounce using a setTimeout and effect hook. That was neat. I will update this readme with the live url after I deploy the project and submit via email.
